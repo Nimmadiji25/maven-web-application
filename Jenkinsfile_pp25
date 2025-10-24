@@ -1,0 +1,41 @@
+node {
+    def mavenHome = tool name: 'Maven3.9.11'
+
+    stage('1. Clone Code') {
+        sh "echo Running a software build and deployment project for Paypaal"
+        git "https://github.com/Nimmadiji25/maven-web-application"
+    }
+
+    stage('2. Test & Build') {
+        // Run Maven directly in the workspace root
+        sh "${mavenHome}/bin/mvn clean install"
+    } 
+    /*
+    stage('3. Code Quality') {
+        sh "${mavenHome}/bin/mvn sonar:sonar"
+    }   
+    stage('4. Upload Artifacts') {
+        sh "${mavenHome}/bin/mvn deploy"
+    }
+    stage('5deploy_uat'){
+        deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat-credentials', path: '', url: 'http://172.31.6.246:8080/')], contextPath: null, war: 'target/*war'
+   }
+stage('6deploy_prod') {
+    deploy adapters: [tomcat9(
+        alternativeDeploymentContext: '',
+        credentialsId: 'tomcat-credentials',
+        path: '',
+        url: 'http://172.31.6.246:8080/'
+    )],
+    contextPath: null,
+    war: 'target/*war'
+}
+ stage('7Notification'){
+    // Pipeline Syntax 
+    emailext body: '''Build status for frontend application.
+
+regards,
+Ralia''', recipientProviders: [buildUser(), developers(), contributor()], subject: 'Build status', to: 'paypal-project@gmail.com'
+ }
+ */
+   }
